@@ -4,7 +4,8 @@ if (!globalThis.setImmediate) {
 }
 
 import express from 'express';
-import dotenv from 'dotenv/config';
+import dotenv from 'dotenv'
+dotenv.config();
 import mongoDBConnect from './mongoDB/connection.js';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -36,7 +37,8 @@ const server = app.listen(PORT, () => {
 const io = new Server.Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.BASE_URL,
+    credentials: true,
   },
 });
 io.on('connection', (socket) => {
